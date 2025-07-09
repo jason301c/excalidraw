@@ -17,6 +17,7 @@ import { useQuery, useMutation } from "@tanstack/react-query";
 import { RefreshCcw } from "lucide-react";
 import { getDrawData, setDrawData } from "@/db/draw";
 import { drawDataStore } from "@/stores/drawDataStore";
+import IntegratedNavigation from "@/components/IntegratedNavigation";
 
 type PageProps = {
   id: string;
@@ -122,7 +123,7 @@ export default function Page({ id }: PageProps) {
   }, [id, excalidrawAPI, theme]);
 
   return (
-    <div className="flex w-full flex-col">
+    <div className="flex h-full w-full flex-col">
       <div className="h-full w-full">
         {isLoading ? (
           <Loader />
@@ -131,40 +132,44 @@ export default function Page({ id }: PageProps) {
             excalidrawAPI={(api) => setExcalidrawAPI(api)}
             initialData={{ appState: { theme: theme } }}
             renderTopRightUI={() => (
-              <div className="flex gap-2">
-                <Input
-                  onChange={(e) => setName(e.target.value)}
-                  value={name}
-                  className="h-9 w-40"
-                  placeholder="Page Title"
-                />
-                <Button
-                  variant="secondary"
-                  onClick={setSceneData}
-                  disabled={isSaving}
-                  size="sm"
-                >
-                  {isSaving ? "Saving..." : "Save"}
-                </Button>
-                <TooltipProvider>
-                  <Tooltip>
-                    <TooltipTrigger asChild>
-                      <Button
-                        variant="secondary"
-                        size="sm"
-                        onClick={updateScene}
-                      >
-                        <RefreshCcw className="h-4 w-4" />
-                      </Button>
-                    </TooltipTrigger>
-                    <TooltipContent>
-                      <p>
-                        Refreshes the page. This removes any unsaved changes.
-                        Use with caution.
-                      </p>
-                    </TooltipContent>
-                  </Tooltip>
-                </TooltipProvider>
+              <div className="flex items-center gap-4">
+                <div className="flex gap-2">
+                  <Input
+                    onChange={(e) => setName(e.target.value)}
+                    value={name}
+                    className="h-9 w-40"
+                    placeholder="Page Title"
+                  />
+                  <Button
+                    variant="secondary"
+                    onClick={setSceneData}
+                    disabled={isSaving}
+                    size="sm"
+                  >
+                    {isSaving ? "Saving..." : "Save"}
+                  </Button>
+                  <TooltipProvider>
+                    <Tooltip>
+                      <TooltipTrigger asChild>
+                        <Button
+                          variant="secondary"
+                          size="sm"
+                          onClick={updateScene}
+                        >
+                          <RefreshCcw className="h-4 w-4" />
+                        </Button>
+                      </TooltipTrigger>
+                      <TooltipContent>
+                        <p>
+                          Refreshes the page. This removes any unsaved changes.
+                          Use with caution.
+                        </p>
+                      </TooltipContent>
+                    </Tooltip>
+                  </TooltipProvider>
+                </div>
+                <div className="h-8 w-px bg-gray-300 dark:bg-gray-600" />
+                <IntegratedNavigation />
               </div>
             )}
             theme={theme === "dark" ? "dark" : "light"}

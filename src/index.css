@@ -12,6 +12,14 @@
   }
   html {
     font-family: "Quicksand", sans-serif;
+    height: 100%;
+  }
+  body {
+    height: 100%;
+    margin: 0;
+  }
+  #root {
+    height: 100%;
   }
   :root {
     --radius: 0.5rem;

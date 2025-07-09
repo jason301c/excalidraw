@@ -16,6 +16,7 @@ import { Tooltip, TooltipContent } from "@/components/ui/tooltip";
 import { TooltipTrigger } from "@radix-ui/react-tooltip";
 import { ExternalLink } from "lucide-react";
 import { createNewPage } from "@/db/draw";
+import IntegratedNavigation from "@/components/IntegratedNavigation";
 
 export default function Mermaid() {
   const [mermaidSyntax, setMermaidSyntax] = useState("");
@@ -85,7 +86,7 @@ export default function Mermaid() {
   }, [excalidrawAPI]);
 
   return (
-    <div className="flex h-full w-full flex-col p-3">
+    <div className="flex h-full w-full flex-col">
       <TitleBar
         title="MERMAID"
         ctaLabel="Save As New Page"
@@ -108,8 +109,8 @@ export default function Mermaid() {
           </Tooltip>
         }
       />
-      <div className="flex h-full w-full flex-row gap-3">
-        <div className="flex h-full w-full flex-col gap-1 rounded-xl border-2 border-white p-1 sm:w-1/3">
+      <div className="flex h-full w-full flex-row gap-3 p-3">
+        <div className="flex h-full w-full flex-col gap-1 rounded-xl border-2 border-gray-300 dark:border-gray-600 p-1 sm:w-1/3">
           <Textarea
             onChange={(e) => setMermaidSyntax(e.target.value)}
             className="h-full resize-none"
@@ -125,11 +126,12 @@ export default function Mermaid() {
             Convert to Excalidraw
           </Button>
         </div>
-        <div className="h-full w-full rounded-xl border-2 border-white sm:w-2/3">
+        <div className="h-full w-full rounded-xl border-2 border-gray-300 dark:border-gray-600 sm:w-2/3">
           <Excalidraw
             excalidrawAPI={(api) => setExcalidrawAPI(api)}
             theme={theme === "dark" ? "dark" : "light"}
             autoFocus
+            renderTopRightUI={() => <IntegratedNavigation />}
           />
         </div>
       </div>
